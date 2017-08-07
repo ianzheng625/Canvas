@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta  http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Stars</title>
+  </head>
+
+  <body>
+    <canvas id="canvas" style="border:1px solid #aaa ;display:block; margin:5px auto;"></canvas>
+  </body>
+  <script>
+    window.onload = function(){
+      var canvas = document.getElementById("canvas") ;
+      canvas.width = 1340;
+      canvas.height = 620;
+
+      var context = canvas.getContext("2d");
+
+      context.fillStyle = "black";
+      context.fillRect(0 , 0 , canvas.width , canvas.height);
+      //小圆r ， 大圆R ，坐标X ，坐标Y ， 偏移角度rot
+      for(var i = 0 ; i<200 ; i++){
+        var r = Math.random() * 20 +5 ;
+        var x = Math.random() * (canvas.width - r * 2) + r;
+        var y = Math.random() * (canvas.height- r * 2) + r;
+        var a = Math.random() * 360;
+        drawStar(context , r/2.0 , r , x , y , a );
+      }
+    }
+    function drawStar (cxt , r ,R , x, y , rot ){
+      cxt.beginPath();
+      for(var i = 0 ; i<5 ; i++ ){
+        cxt.lineTo(Math.cos( (18 + i*72 - rot) / 180 * Math.PI ) * R +x ,
+                -Math.sin( (18 + i*72 - rot) / 180 * Math.PI ) * R +y);
+        cxt.lineTo(Math.cos( (54 + i*72 - rot) / 180 * Math.PI ) * r +x ,
+                -Math.sin( (54 + i*72 - rot) / 180 * Math.PI ) * r +y);
+      }
+
+      cxt.closePath();
+
+      cxt.fillStyle = "#fb3";
+      cxt.strokeStyle = "#fd5";
+      cxt.lineWidth = 3;
+      cxt.lineJoin = "round";
+      cxt.fill();
+      cxt.stroke();
+
+    }
+    var url=document.referrer;
+    document.write(url);
+  </script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta  http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Five-pointed Star</title>
+  </head>
+
+  <body>
+    <canvas id="canvas" style="border:1px solid #aaa ;display:block; margin:5px auto;"></canvas>
+  </body>
+  <script>
+    window.onload = function(){
+      var canvas = document.getElementById("canvas") ;
+      canvas.width = 800;
+      canvas.height = 800;
+
+      var context = canvas.getContext("2d");
+      context.lineWidth = 10 ;
+
+      //五角星连接处样式 ：miter尖角连接 round圆角连接 bevel平角连接
+      context.lineJoin = "miter";
+
+      //当 lineJoin = "miter" 时 miterLimit 才有用 miter表尖角 数值一般大于width
+      context.miterLimit = 10;
+
+      //小圆r ， 大圆R ，坐标X ，坐标Y ， 偏移角度rot ， 填充颜色col
+      drawStar(context , 150 , 300 , 400 , 400 , 0 , "red");
+      drawStar(context , 75 , 140 , 400 , 400 , 180 , "#69c");
+      drawStar(context , 35 , 65 , 400 , 400 , 0 , "yellow");
+    }
+
+    function drawStar (cxt , r ,R , x, y , rot , col){
+      cxt.beginPath();
+      for(var i = 0 ; i<5 ; i++ ){
+        cxt.lineTo(Math.cos( (18 + i*72 - rot) / 180 * Math.PI ) * R +x ,
+                  -Math.sin( (18 + i*72 - rot) / 180 * Math.PI ) * R +y);
+        cxt.lineTo(Math.cos( (54 + i*72 - rot) / 180 * Math.PI ) * r +x ,
+                  -Math.sin( (54 + i*72 - rot) / 180 * Math.PI ) * r +y);
+      }
+
+      cxt.fillStyle = col;
+      cxt.closePath();
+      cxt.fill();
+      cxt.stroke();
+    }
+  </script>
+</html>
